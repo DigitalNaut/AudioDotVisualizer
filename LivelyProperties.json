@@ -1,0 +1,91 @@
+{
+  "label-spectrum": {
+    "type": "label",
+    "value": "Spectrum settings"
+  },
+  "foregroundColor": {
+    "text": "Foreground",
+    "type": "color",
+    "value": "#f77f00"
+  },
+  "backgroundColor": {
+    "text": "Background",
+    "type": "color",
+    "value": "#003049"
+  },
+  "rainbow": {
+    "text": "Rainbow",
+    "type": "checkbox",
+    "value": false
+  },
+  "verticalScale": {
+    "max": 50,
+    "min": 0,
+    "tick": 8,
+    "step": 0.1,
+    "text": "Amplitude",
+    "type": "slider",
+    "value": 8
+  },
+  "dotScale": {
+    "max": 5,
+    "min": 0,
+    "tick": 1,
+    "step": 0.1,
+    "text": "Dot size",
+    "type": "slider",
+    "value": 1
+  },
+  "sortingMode": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Spectrum mode",
+    "items": [
+      "Concentrated",
+      "Center-split",
+      "Keep original"
+    ]
+  },
+  "label-background": {
+    "type": "label",
+    "value": "Background settings"
+  },
+  "useBgImage": {
+    "text": "Use background image",
+    "type": "checkbox",
+    "value": false
+  },
+  "bgImageSrc": {
+    "type": "folderDropdown",
+    "value": "default.jpg",
+    "text": "Background images",
+    "filter": "*.jpg|*.jpeg|*.png|*.webp|*.gif",
+    "folder": "images"
+  },
+  "bgSizing": {
+    "type": "dropdown",
+    "value": 0,
+    "text": "Background size",
+    "items": [
+      "Cover",
+      "Contain",
+      "Auto"
+    ]
+  },
+  "bgPositioning": {
+    "type": "dropdown",
+    "value": 3,
+    "text": "Background size",
+    "items": [
+      "Top",
+      "Top left",
+      "Top right",
+      "Center",
+      "Center left",
+      "Center right",
+      "Bottom",
+      "Bottom left",
+      "Bottom right"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "AppVersion": "1.0.0.0",
+  "Title": "Audio Dot",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "System audio visualized as a spectrum of dots",
+  "Author": "DigitalNaut",
+  "License": "MIT",
+  "Contact": "https://github.com/DigitalNaut/AudioDotVisualizer",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": " --audio",
+  "IsAbsolutePath": false,
+  "Id": null,
+  "Tags": null,
+  "Version": 0
+}
