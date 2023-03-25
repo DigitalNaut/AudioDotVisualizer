@@ -14,6 +14,7 @@ let max_height, startPos, vizWidth, midY;
 
 let numDots = 128;
 let dotSize = 10;
+let twiceDotSize = dotSize * 2;
 let dotScale = 1;
 let backgroundColor = "rgb(0,0,0)";
 let foregroundColor = "rgb(255,255,255)";
@@ -24,7 +25,7 @@ let bgImageSrc = "";
 let ctx = canvas.getContext("2d");
 let bgImageLoaded = false;
 let verticalScale = 10;
-let sortSoundArray = null;
+let arraySortStrat = null;
 
 function hexToRgb(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -45,6 +46,7 @@ bgImage.onload = () => {
 
 function calcDotSize() {
   dotSize = dotScale * (canvas.width / numDots);
+  twiceDotSize = dotSize * 2;
 }
 
 function setCanvasSize() {
@@ -76,11 +78,11 @@ function livelyPropertyListener(name, val) {
       break;
     case "useBgImage":
       useBgImage = val;
-      changeBackgroundImage(useBgImage);
+      setBgImage(useBgImage);
       break;
     case "bgImageSrc":
       bgImageSrc = val.replace("\\", "/");
-      changeBackgroundImage(useBgImage);
+      setBgImage(useBgImage);
       break;
     case "verticalScale":
       verticalScale = val;
@@ -136,15 +138,15 @@ function livelyPropertyListener(name, val) {
     case "sortingMode":
       switch (val) {
         case 0:
-          sortSoundArray = concentratedSort;
+          arraySortStrat = concentratedSort;
           numDots = 128;
           break;
         case 1:
-          sortSoundArray = centeredSort;
+          arraySortStrat = centeredSort;
           numDots = 256;
           break;
         default:
-          sortSoundArray = null;
+          arraySortStrat = null;
           numDots = 256;
           break;
       }
@@ -165,21 +167,22 @@ function centeredSort(audioArray) {
   return audioArray;
 }
 
-function changeBackgroundImage(set) {
+function setBgImage(useImg) {
   bgImageLoaded = false;
 
-  if (set) bgImage.src = bgImageSrc;
+  if (useImg) bgImage.src = bgImageSrc;
   else {
     bgImage.src = null;
     document.body.style.backgroundImage = null;
   }
 }
 
-function renderAnimation(audioArray) {
+function renderAnim(audioArray, length) {
   ctx.fillStyle = foregroundColor;
 
-  for (let x = 0; x < audioArray.length; x++) {
+  for (let x = 0; x < length; x++) {
     const soundVal = audioArray[x];
+    const xPos = (x / length) * canvas.width;
 
     if (rainbow)
       ctx.fillStyle =
@@ -187,8 +190,7 @@ function renderAnimation(audioArray) {
 
     for (let y = 0; y < soundVal * verticalScale; y++) {
       const vertIndex = soundVal - y / verticalScale;
-      const xPos = (x / audioArray.length) * canvas.width;
-      const yPos = y * dotSize * 2;
+      const yPos = y * twiceDotSize;
       const arcRadius = Math.min(vertIndex * dotSize, dotSize);
 
       ctx.beginPath();
@@ -202,10 +204,11 @@ function renderAnimation(audioArray) {
   }
 }
 
-function livelyAudioListener(audioArray) {
-  if (sortSoundArray) audioArray = sortSoundArray?.(audioArray);
+function audioListener(audioArray) {
+  if (arraySortStrat) audioArray = arraySortStrat(audioArray);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  renderAnimation(audioArray);
+  const { length } = audioArray;
+  if (length) renderAnim(audioArray, length);
 }
