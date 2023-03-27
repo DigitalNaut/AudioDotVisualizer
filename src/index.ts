@@ -1,24 +1,18 @@
-type AudioArray = number[];
-type AudioArraySortStrat = (arr: AudioArray) => AudioArray;
+const { body, documentElement: root } = document;
+const bg = <HTMLDivElement>document.getElementById("bg");
+const canvas = <HTMLCanvasElement>document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 let max_height: number, startPos: number, vizWidth: number, midY: number;
-
 let numDots = 128;
 let dotSize = 10;
 let twiceDotSize = dotSize * 2;
 let dotScale = 1;
-let backgroundColor = "rgb(0,0,0)";
-let foregroundColor = "rgb(255,255,255)";
-let backgroundGradient = `linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)`;
 let rainbow = false;
 let useBgImage = false;
 let bgImageSrc = "";
-let bgImageLoaded = false;
 let verticalScale = 10;
 let arraySortStrat: AudioArraySortStrat | null = null;
-
-const canvas = <HTMLCanvasElement>document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
 
 function hexToRgb(hex: string) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -33,8 +27,7 @@ function hexToRgb(hex: string) {
 
 const bgImage = new Image();
 bgImage.onload = () => {
-  bgImageLoaded = true;
-  document.body.style.backgroundImage = `url(${bgImageSrc})`;
+  body.style.setProperty("--bg-image", `url(${bgImageSrc})`);
 };
 
 function calcDotSize() {
@@ -54,7 +47,6 @@ function setCanvasSize() {
 
 window.onload = setCanvasSize;
 window.onresize = setCanvasSize;
-const bg = <HTMLDivElement>document.getElementById("bg");
 
 function livelyPropertyListener(name: string, val: string | boolean | number) {
   if (typeof val === "string") {
@@ -63,15 +55,21 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
         bgImageSrc = val.replace("\\", "/");
         setBgImage(useBgImage);
         break;
+
       case "foregroundColor":
         var color = hexToRgb(val);
-        foregroundColor = `rgb(${color?.r},${color?.g},${color?.b})`;
+        root.style.setProperty(
+          "--color-foreground",
+          `rgb(${color?.r},${color?.g},${color?.b})`
+        );
         break;
+
       case "backgroundColor":
         var color = hexToRgb(val);
-        backgroundColor = `rgb(${color?.r},${color?.g},${color?.b})`;
-        bg.style.backgroundColor = backgroundColor;
-        bg.style.backgroundImage = backgroundGradient;
+        root.style.setProperty(
+          "--color-background",
+          `rgb(${color?.r},${color?.g},${color?.b})`
+        );
         break;
     }
   }
@@ -81,6 +79,7 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
       case "rainbow":
         rainbow = val;
         break;
+
       case "useBgImage":
         useBgImage = val;
         setBgImage(useBgImage);
@@ -93,16 +92,20 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
       case "verticalScale":
         verticalScale = val;
         break;
+
       case "dotScale":
         dotScale = val;
         calcDotSize();
         break;
+
       case "bgSizing":
-        document.body.style.backgroundSize = bgSizes[val];
+        body.style.setProperty("--bg-size", bgSizes[val]);
         break;
+
       case "bgPositioning":
-        document.body.style.backgroundPosition = bgPositions[val];
+        body.style.setProperty("--bg-position", bgPositions[val]);
         break;
+
       case "sortingMode":
         switch (val) {
           case 0:
@@ -129,30 +132,30 @@ const concentratedSort: AudioArraySortStrat = (audioArray) => {
   return audioArray;
 };
 
-const centeredSort: AudioArraySortStrat = (audioArray: AudioArray) => {
+const centeredSort: AudioArraySortStrat = (audioArray) => {
   const newHalf = audioArray.splice(0, audioArray.length * 0.5);
   audioArray.reverse().push(...newHalf);
   return audioArray;
 };
 
 function setBgImage(useImg: boolean) {
-  bgImageLoaded = false;
-
   if (useImg) {
-    bg.style.backgroundColor = "";
-    bg.style.backgroundImage = "";
+    bg.style.backgroundColor = "unset";
+    bg.style.backgroundImage = "unset";
     bgImage.src = bgImageSrc;
+    body.style.backgroundImage = "var(--bg-image)";
   } else {
-    bg.style.backgroundColor = backgroundColor;
-    bg.style.backgroundImage = backgroundGradient;
+    bg.style.backgroundColor = "var(--color-background)";
+    bg.style.backgroundImage = "var(--bg-gradient)";
     bgImage.src = "";
-    document.body.style.backgroundImage = "";
+    body.style.backgroundImage = "unset";
   }
 }
 
 function renderAnim(audioArray: AudioArray) {
   if (!ctx) return;
 
+  const foregroundColor = root.style.getPropertyValue("--color-foreground");
   ctx.fillStyle = foregroundColor;
 
   for (let x = 0; x < audioArray.length; x++) {
