@@ -4,9 +4,34 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd ./src && tar -a -c -v -f AudioDot_v%npm_package_version%.zip * && mv AudioDot_v%npm_package_version%.zip ../"
+    "typecheck": "tsc --noEmit",
+    "build": "run-s build:*",
+    "build:clean": "rimraf ./build ./dist",
+    "build:ts": "tsc --outDir ./build",
+    "build:uglify": "uglifyjs ./build/index.js -o ./build/index.js -c -m",
+    "build:copy": "robocopy /E .\\src\\ .\\build\\ /XF *.ts /NFL /NDL /NJH /NJS /nc /ns /np || exit 0",
+    "build:check7z": "7z -h || echo '7z is not installed, please install 7z and add it to PATH' && exit 1",
+    "build:dir": "mkdirp dist",
+    "build:zip": "cd ./build && 7z u AudioDot_v%npm_package_version%.zip *",
+    "build:move": "mv ./build/AudioDot_v%npm_package_version%.zip ./dist/",
+    "build:open": "explorer dist",
+    "build:done": "echo 'Build done!'",
+    "purge": "rimraf ./build ./dist"
   },
-  "keywords": ["lively", "wallpaper", "visualizer"],
+  "keywords": [
+    "lively",
+    "wallpaper",
+    "audio",
+    "visualizer"
+  ],
   "author": "DigitalNaut",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.10",
+    "mkdirp": "^2.1.6",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^4.4.1",
+    "typescript": "^5.0.2",
+    "uglify-js": "^3.17.4"
+  }
 }
