@@ -8,7 +8,7 @@
     "build": "run-s build:*",
     "build:clean": "rimraf ./build ./dist",
     "build:ts": "tsc --outDir ./build",
-    "build:uglify": "uglifyjs ./build/index.js -o ./build/index.js -c -m",
+    "build:minify": "uglifyjs-folder ./build/scripts -eo ./build/scripts -x .js",
     "build:copy": "robocopy /E .\\src\\ .\\build\\ /XF *.ts /NFL /NDL /NJH /NJS /nc /ns /np || exit 0",
     "build:check7z": "7z -h || echo '7z is not installed, please install 7z and add it to PATH' && exit 1",
     "build:dir": "mkdirp dist",
@@ -32,6 +32,6 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "^4.4.1",
     "typescript": "^5.0.2",
-    "uglify-js": "^3.17.4"
+    "uglifyjs-folder": "^3.2.0"
   }
 }

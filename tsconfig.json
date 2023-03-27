@@ -12,8 +12,4 @@
   "include": [
     "src/**/*.ts"
   ],
-  "buildOptions": {
-    "outDir": "build",
-    "rootDir": "src"
-  }
 }
