@@ -18,33 +18,35 @@
     "type": "checkbox",
     "value": false
   },
-  "verticalScale": {
+  "amplitude": {
     "max": 50,
-    "min": 0,
-    "tick": 8,
+    "min": 0.1,
     "step": 0.1,
     "text": "Amplitude",
     "type": "slider",
-    "value": 8
+    "value": 35
   },
   "dotScale": {
-    "max": 5,
-    "min": 0,
-    "tick": 1,
+    "max": 1,
+    "min": 0.1,
     "step": 0.1,
-    "text": "Dot size",
+    "text": "Dot scale",
     "type": "slider",
     "value": 1
+  },
+  "dotCount": {
+    "max": 128,
+    "min": 1,
+    "step": 1,
+    "text": "Rows",
+    "type": "slider",
+    "value": 128
   },
   "sortingMode": {
     "type": "dropdown",
     "value": 0,
     "text": "Spectrum mode",
-    "items": [
-      "Concentrated",
-      "Center-split",
-      "Keep original"
-    ]
+    "items": ["Concentrated", "Center Split", "Raw Wave", "Reversed Raw Wave"]
   },
   "label-background": {
     "type": "label",
@@ -66,11 +68,7 @@
     "type": "dropdown",
     "value": 0,
     "text": "Background size",
-    "items": [
-      "Cover",
-      "Contain",
-      "Auto"
-    ]
+    "items": ["Cover", "Contain", "Auto"]
   },
   "bgPositioning": {
     "type": "dropdown",

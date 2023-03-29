@@ -1,0 +1,9 @@
+{
+  "compress": {
+    "unused": false,
+    "dead_code": false
+  },
+  "mangle": {
+    "reserved": ["livelyPropertyListener", "livelyAudioListener"]
+  }
+}

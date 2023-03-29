@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: var(--bg-size);
+  background-position: var(--bg-position);
+  background-image: var(--bg-image);
+  background-color: var(--color-background);
+}
+
+:root {
+  --bg-image: "unset";
+  --bg-size: cover;
+  --bg-position: center;
+  --bg-gradient: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+
+  --color-foreground: "rgb(255,255,255)";
+  --color-background: "rgb(0,0,0)";
+}
+
+#bg {
+  background-color: var(--color-background);
+  background-image: var(--bg-gradient);
+}
