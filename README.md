@@ -13,15 +13,17 @@ A wallpaper plugin for [Lively Wallpaper](https://rocksdanister.github.io/lively
 
 You can customize the appearance via the right-click on the Lively UI.
 
-## Developers
+---
+
+## For Developers
 
 ### Prerequisites
 
 #### Required
 
-- [Node.js](https://nodejs.org/en/) (v18.15.0 LTS) (Restart computer after install)
 - [Lively Wallpaper](https://rocksdanister.github.io/lively/)
-- [7zip](https://www.7-zip.org/)
+- [Node.js](https://nodejs.org/en/) (v18.15.0 LTS) (Restart computer after install)
+- [7zip](https://www.7-zip.org/) (For building)
 
 #### Recommended
 
