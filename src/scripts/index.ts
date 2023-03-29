@@ -1,10 +1,3 @@
-const { body, documentElement: root } = document;
-const bg = <HTMLDivElement>document.getElementById("bg");
-const canvas = <HTMLCanvasElement>document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-let numDots = 128;
-let dotScale = 1;
 let useBgImage = false;
 let bgImageSrc = "";
 
@@ -52,6 +45,7 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
           "--color-foreground",
           `rgb(${color?.r},${color?.g},${color?.b})`
         );
+        foregroundColor = root.style.getPropertyValue("--color-foreground");
         break;
 
       case "backgroundColor":
@@ -79,15 +73,6 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
 
   if (typeof val === "number")
     switch (name) {
-      case "verticalScale":
-        verticalScale = val;
-        break;
-
-      case "dotScale":
-        dotScale = val;
-        calcDotSize();
-        break;
-
       case "bgSizing":
         body.style.setProperty("--bg-size", bgSizes[val]);
         break;
@@ -96,22 +81,29 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
         body.style.setProperty("--bg-position", bgPositions[val]);
         break;
 
+      case "amplitude":
+        verticalDotCount = val;
+        break;
+
+      case "dotScale":
+        dotScale = val * 0.5;
+        calcDotSize();
+        break;
+
+      case "dotCount":
+        numDots = val;
+        calcDotSize();
+        break;
+
       case "sortingMode":
         switch (val) {
           case 0:
             arraySortStrat = concentratedSort;
-            numDots = 128;
-            break;
-          case 1:
-            arraySortStrat = centeredSort;
-            numDots = 256;
             break;
           default:
-            arraySortStrat = null;
-            numDots = 256;
+            arraySortStrat = noSort;
             break;
         }
-        calcDotSize();
         break;
     }
 }
