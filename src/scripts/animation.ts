@@ -15,6 +15,14 @@ const concentratedSort: AudioArraySortStrat = (audioArray) => {
   return [...slice, ...slice.reverse()];
 };
 
+const centerSplitSort: AudioArraySortStrat = (audioArray) => {
+  const slice = audioArray.sort((a, b) => b - a).slice(0, adjustedNumDots);
+  return [...slice, ...slice.reverse()];
+};
+
+const reverseWaveSort: AudioArraySortStrat = (audioArray) =>
+  audioArray.slice(0, numDots).reverse();
+
 const noSort: AudioArraySortStrat = (audioArray) =>
   audioArray.slice(0, numDots);
 

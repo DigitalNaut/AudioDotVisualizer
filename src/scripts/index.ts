@@ -100,8 +100,14 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
           case 0:
             arraySortStrat = concentratedSort;
             break;
-          default:
+          case 1:
+            arraySortStrat = centerSplitSort;
+            break;
+          case 2:
             arraySortStrat = noSort;
+            break;
+          case 3:
+            arraySortStrat = reverseWaveSort;
             break;
         }
         break;

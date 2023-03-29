@@ -38,7 +38,7 @@
     "max": 128,
     "min": 1,
     "step": 1,
-    "text": "Dot count",
+    "text": "Rows",
     "type": "slider",
     "value": 128
   },
@@ -46,7 +46,7 @@
     "type": "dropdown",
     "value": 0,
     "text": "Spectrum mode",
-    "items": ["Concentrated", "Raw wave"]
+    "items": ["Concentrated", "Center Split", "Raw Wave", "Reversed Raw Wave"]
   },
   "label-background": {
     "type": "label",
