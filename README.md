@@ -8,9 +8,10 @@ A wallpaper plugin for [Lively Wallpaper](https://rocksdanister.github.io/lively
 
 1. Download the latest version of the Audio Dot from the [releases page](https://github.com/DigitalNaut/AudioDotVisualizer/releases/tag/Release).
 2. Drag the `.zip` file into Lively.
-3. Set the `Audio Dot` wallpaper.
-4. Customize the appearance via right-click.
-5. Play music and enjoy!
+3. Set the `Audio Dot` wallpaper with a click.
+4. Play music and enjoy!
+
+You can customize the appearance via the right-click on the Lively UI.
 
 ## Developers
 
