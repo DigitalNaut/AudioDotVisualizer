@@ -1,3 +1,4 @@
+// Elements
 const { body, documentElement: root } = document;
 const bg = <HTMLDivElement>document.getElementById("bg");
 const canvas = <HTMLCanvasElement>document.getElementById("canvas");
@@ -6,25 +7,26 @@ const ctx = canvas.getContext("2d");
 // User preferences
 let dotScale = 0.5;
 let verticalDotCount = 25;
-let numDots = 128;
-let adjustedNumDots = 0;
+let dotRows = 128;
+let halfDotRows = dotRows * 0.5;
+let otherHalfDotRows = 0;
 let rainbow = false;
 
 const concentratedSort: AudioArraySortStrat = (audioArray) => {
-  const slice = audioArray.sort((a, b) => a - b).slice(adjustedNumDots);
+  const slice = audioArray.sort((a, b) => a - b).slice(otherHalfDotRows);
   return [...slice, ...slice.reverse()];
 };
 
 const centerSplitSort: AudioArraySortStrat = (audioArray) => {
-  const slice = audioArray.sort((a, b) => b - a).slice(0, adjustedNumDots);
+  const slice = audioArray.sort((a, b) => b - a).slice(0, halfDotRows);
   return [...slice, ...slice.reverse()];
 };
 
 const reverseWaveSort: AudioArraySortStrat = (audioArray) =>
-  audioArray.slice(0, numDots).reverse();
+  audioArray.slice(0, dotRows).reverse();
 
 const noSort: AudioArraySortStrat = (audioArray) =>
-  audioArray.slice(0, numDots);
+  audioArray.slice(0, dotRows);
 
 // Dynamic properties
 let arraySortStrat = noSort;
@@ -35,10 +37,13 @@ let dotRadius: number,
   midY: number;
 
 function calcDotSize() {
-  dotRadius = dotScale * (canvas.width / numDots);
+  dotRadius = dotScale * (canvas.width / dotRows);
   dotDiameter = dotRadius * 2;
+
   maxVerticalDotCount = Math.ceil((canvas.height / dotDiameter) * 0.5);
-  adjustedNumDots = 128 - numDots * 0.5;
+
+  halfDotRows = dotRows * 0.5;
+  otherHalfDotRows = 128 - halfDotRows;
 }
 
 function calcCanvasProps() {
@@ -61,7 +66,7 @@ function renderAnim(audioArray: AudioArray) {
     let soundVal = audioArray[x];
     if (soundVal > 1) soundVal = 1;
 
-    const xPos = (x / audioArray.length) * canvas.width;
+    const xPos = (x / audioArray.length) * canvas.width + dotRadius;
 
     if (rainbow) ctx.fillStyle = rainbowColors[x % rainbowColors.length];
 

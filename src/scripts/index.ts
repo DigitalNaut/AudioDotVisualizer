@@ -91,7 +91,7 @@ function livelyPropertyListener(name: string, val: string | boolean | number) {
         break;
 
       case "dotCount":
-        numDots = val;
+        dotRows = val;
         calcDotSize();
         break;
 
