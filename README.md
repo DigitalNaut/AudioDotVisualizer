@@ -74,9 +74,9 @@ npm run purge # OR pnpm purge OR yarn purge
 
 ### Run
 
-Unfortunately, Lively I haven't figured out how to run the project directly from the source code. So, you'll have to build the project first and import it.
+Unfortunately, I haven't figured out how to automate the importing of the project into Lively or run then project directly from the source code, so you'll have to build the project first and then import it manually:
 
 1. Open Lively Wallpaper.
-2. Open the `/dist` folder.
+2. Open the `/dist` folder (it'll open automatically with the `npm run build` command).
 3. Drag the `AudioDot_vX.X.X.zip` file into Lively Wallpaper.
-4. Set the `Audio Dot` wallpaper.
+4. Set the `Audio Dot` wallpaper with the latest changes.
