@@ -9,13 +9,11 @@
     "build:clean": "rimraf ./build ./dist",
     "build:ts": "tsc --outDir ./build",
     "build:minify": "uglifyjs-folder ./build/scripts -eo ./build/scripts -x .js",
-    "build:copy": "robocopy /E .\\src\\ .\\build\\ /XF *.ts /NFL /NDL /NJH /NJS /nc /ns /np || exit 0",
-    "build:check7z": "7z -h || echo '7z is not installed, please install 7z and add it to PATH' && exit 1",
+    "build:copySrc": "robocopy /E .\\src\\ .\\build\\ /XF *.ts /NFL /NDL /NJH /NJS /nc /ns /np || exit 0",
     "build:dir": "mkdirp dist",
     "build:zip": "cd ./build && 7z u AudioDot_v%npm_package_version%.zip *",
     "build:move": "mv ./build/AudioDot_v%npm_package_version%.zip ./dist/",
     "build:open": "explorer dist",
-    "build:done": "echo 'Build done!'",
     "purge": "rimraf ./build ./dist"
   },
   "keywords": [
@@ -27,7 +25,7 @@
   "author": "DigitalNaut",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.15.11",
     "mkdirp": "^2.1.6",
     "npm-run-all": "^4.1.5",
     "rimraf": "^4.4.1",
